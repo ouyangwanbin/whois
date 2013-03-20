@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">域名查询</string>
+	<string name="init_error">初始化失败</string>
+	<string name="emptyinput">请输入域名</string>
+	<string name="domain_has_registered">已注册</string>
+	<string name="domain_has_not_registered">未注册</string>
+	<string name="query_validate_unpass">请选择域名后缀</string>
+	<string name="data_load_error">数据加载失败</string>
+	<string name="data_query_error">数据查询失败</string>
+	<string name="loading">数据加载，请等待...</string>
+	<string name="query">查询</string>
+	<string name="allcheck">全选</string>
+	<string name="back">返回</string>
+	<string name="inputhint">请输入域名或域名前缀</string>
+</resources>

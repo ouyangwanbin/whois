@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tlds>	
+	<tld>
+		<name>.中国</name>
+		<server>cwhois.cnnic.cn</server>
+		<notfind>no matching record</notfind>
+	</tld>
+	<tld>
+		<name>.公司</name>
+		<server>cwhois.cnnic.cn</server>
+		<notfind>no matching record</notfind>
+	</tld>
+	<tld>
+		<name>.网络</name>
+		<server>cwhois.cnnic.cn</server>
+		<notfind>no matching record</notfind>
+	</tld>
+	<tld>
+		<name>.cn</name>
+		<server>cwhois.cnnic.cn</server>
+		<notfind>no matching record</notfind>
+	</tld>
+	<tld>
+		<name>.com</name>
+		<server>whois.verisign-grs.com</server>
+		<notfind>No match for</notfind>
+	</tld>
+</tlds>

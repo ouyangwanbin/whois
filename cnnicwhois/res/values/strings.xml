@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DOMAIN QUERY</string>
+	<string name="init_error">Failed to initialize</string>
+	<string name="emptyinput">Please input domain</string>
+	<string name="domain_has_registered">Registered</string>
+	<string name="domain_has_not_registered">Unregistered</string>
+	<string name="query_validate_unpass">Please choose tlds</string>
+	<string name="data_load_error">Failed to load data</string>
+	<string name="data_query_error">Failed to query data</string>
+	<string name="loading">Loading,please wait...</string>
+	<string name="query">go</string>
+	<string name="allcheck">all</string>
+	<string name="back">back</string>
+	<string name="inputhint">please enter domain</string>
+</resources>
