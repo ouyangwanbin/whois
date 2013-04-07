@@ -8,7 +8,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_centerInParent="true"
-		android:text="@string/app_name"
+		android:text="@string/domain_cat_manage"
 		android:textSize="16sp"
 		android:textScaleX="1.5"
 	/>
@@ -17,9 +17,8 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentRight="true"
-		android:text="@string/setting"
-		android:onClick="showManage"
-		android:visibility="gone"
-		android:id="@+id/showManage"
+		android:text="@string/tld_add"
+		android:onClick="addTld"
+		android:id="@+id/tld_add_btn"
 	/>
 </RelativeLayout>

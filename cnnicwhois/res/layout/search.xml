@@ -15,7 +15,7 @@
     android:layout_width="80dp"
     android:layout_height="wrap_content"
     android:id="@+id/button"
-    android:text="查询"     
+    android:text="@string/query"     
     />
 
 </LinearLayout>

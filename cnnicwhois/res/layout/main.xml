@@ -1,191 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" 
-    android:background="@drawable/background"
-    >
-
-    
-<LinearLayout 
-    android:id="@+id/search"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_gravity="center"
-    android:gravity="center"
-    >
+	<LinearLayout 
+		xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/search"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	    android:layout_gravity="center"
+	    android:gravity="center"
+	    >
+		
+		<EditText 
+	    android:layout_width="200dp"
+	    android:layout_height="wrap_content"
+	    android:id="@+id/domain"
+	    android:hint="@string/inputhint"
+	    android:textStyle="italic"
+	    android:padding="5dip"
+		android:textSize="18dip"
+		android:background="@drawable/rounded_edittext_states"
+	    />
 	
-	<EditText 
-    android:layout_width="200dp"
-    android:layout_height="wrap_content"
-    android:id="@+id/domain"
-    android:hint="@string/inputhint"
-    android:textStyle="italic"
-    android:padding="5dip"
-	android:textSize="18dip"
-	android:background="@drawable/rounded_edittext_states"
-    />
-
-    <Button 
-    android:layout_width="70dp"
-    android:layout_height="wrap_content"
-    android:textScaleX="1.5"
-    android:id="@+id/button"
-    android:layout_marginRight="5dp"
-    android:layout_marginLeft="5dp"
-    android:padding="5dip"
-    android:textStyle="italic"
-    android:text="@string/query"  
-    android:onClick="queryDomain"
-    android:textSize="18dip"
-    android:background="@drawable/bg_button"   
-    />
-
-</LinearLayout>
-<TableLayout
-       android:layout_width="fill_parent" 
-       android:layout_height="wrap_content" 
-       android:shrinkColumns="0,1,2"
-       android:id="@+id/table"
-       >
-    <TableRow>
-		<CheckBox
-	        android:layout_width="80dp"
-	        android:layout_weight="1"
-	        android:layout_height="wrap_content"
-	        android:id="@+id/cn"
-	        android:text=".cn" />
-    	<CheckBox
-	        android:layout_width="80dp"
-	        android:layout_weight="1"
-	        android:layout_height="wrap_content"
-	         android:id="@+id/com"
-	        android:text=".com" />
-
-    	<CheckBox
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	         android:id="@+id/net"
-	        android:text=".net" />
-  	</TableRow>
-  	
-    <TableRow>
-		<CheckBox
-	        android:layout_width="80dp"
-	        android:layout_weight="1"
-	        android:layout_height="wrap_content"
-	        android:id="@+id/comcn"
-	        android:text=".com.cn" />
-    	<CheckBox
-	        android:layout_width="80dp"
-	        android:layout_weight="1"
-	        android:layout_height="wrap_content"
-	        android:id="@+id/netcn"
-	        android:text=".net.cn" />
-
-    	<CheckBox
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:id="@+id/govcn"
-	        android:text=".gov.cn" />
-  	</TableRow> 
-        
-     
-     <TableRow>
-		<CheckBox
-	        android:layout_width="80dp"
-	        android:layout_weight="1"
-	        android:layout_height="wrap_content"
-	        android:id="@+id/org"
-	        android:text=".org" />
-    	<CheckBox
-	        android:layout_width="80dp"
-	        android:layout_weight="1"
-	        android:layout_height="wrap_content"
-	        android:id="@+id/info"
-	        android:text=".info" />
-
-    	<CheckBox
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:id="@+id/tel"
-	        android:text=".tel" />
-  	</TableRow> 
-
-</TableLayout>
-  
-<TableLayout
-       android:layout_width="fill_parent" 
-       android:layout_height="wrap_content" 
-       android:shrinkColumns="0,1,2"
-       android:id="@+id/chtable"
-       android:visibility="gone"
-       >
-    <TableRow>
-		<CheckBox
-	        android:layout_width="80dp"
-	        android:layout_weight="1"
-	        android:layout_height="wrap_content"
-	        android:id="@+id/ch"
-	        android:text=".中国" />
-    	<CheckBox
-	        android:layout_width="80dp"
-	        android:layout_weight="1"
-	        android:layout_height="wrap_content"
-	        android:id="@+id/company"
-	        android:text=".公司" />
-
-    	<CheckBox
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:id="@+id/internet"
-	        android:text=".网络" />
-  	</TableRow> 
-  	
-    <TableRow>
-		<CheckBox
-	        android:layout_width="80dp"
-	        android:layout_weight="1"
-	        android:layout_height="wrap_content"
-	        android:id="@+id/cdn"
-	        android:text=".cn" />
-		
-		<CheckBox
-	        android:layout_width="80dp"
-	        android:layout_weight="1"
-	        android:layout_height="wrap_content"
-	        android:id="@+id/chtel"
-	        android:text=".tel" />
-		
-		<CheckBox
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:id="@+id/chcom"
-	        android:text=".com" />
-  	</TableRow> 
-  	    
-    
-</TableLayout>
-
-	<CheckBox
-	        android:layout_width="80dp"
-	        android:layout_height="wrap_content"
-	        android:layout_gravity="right"
-	        android:text="@string/allcheck" 
-	        android:id="@+id/allcheck"
-	        android:onClick="changeCheckBox"
-	        />
-	<TextView 
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_gravity="center"
-		    android:gravity="center"
-		    android:paddingLeft="0dp"
-		    android:layout_marginTop="20dp"
-		    android:id="@+id/domainResult"
-		    android:visibility="gone"
-		    android:scrollbars="vertical"
-		    android:singleLine="false"
-	 />
-</LinearLayout>
+	    <Button 
+	    android:layout_width="70dp"
+	    android:layout_height="wrap_content"
+	    android:textScaleX="1.5"
+	    android:id="@+id/button"
+	    android:layout_marginRight="5dp"
+	    android:layout_marginLeft="5dp"
+	    android:padding="5dip"
+	    android:textStyle="italic"
+	    android:text="@string/query"  
+	    android:onClick="queryDomain"
+	    android:textSize="18dip"
+	    android:background="@drawable/bg_button"   
+	    />
+	</LinearLayout>

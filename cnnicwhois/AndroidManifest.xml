@@ -11,6 +11,7 @@
         android:label="@string/app_name" 
         >
         <uses-library android:name="android.test.runner"/>
+        
         <activity 
             android:name=".IndexActivity" 
             android:screenOrientation="portrait"
@@ -22,9 +23,26 @@
             </intent-filter>
         </activity>
         
+            
         <activity
             android:label="@string/app_name"
-            android:name=".MainActivity" 
+            android:name=".MenuActivity" 
+            android:configChanges="orientation" 
+            android:theme="@style/title_style"
+            >
+        </activity>
+
+        <activity
+            android:label="@string/app_name"
+            android:name=".TldManagerActivity" 
+            android:configChanges="orientation" 
+            android:theme="@style/title_style"
+            >
+        </activity>
+            
+        <activity
+            android:label="@string/app_name"
+            android:name=".WhoisActivity" 
             android:configChanges="orientation" 
             android:theme="@style/title_style"
             >
@@ -32,7 +50,7 @@
         
         <activity
             android:label="@string/app_name"
-            android:name=".DisplayResultActivity" 
+            android:name=".DisplayWhoisResultActivity" 
             android:configChanges="orientation" 
             android:theme="@style/title_style"
             >

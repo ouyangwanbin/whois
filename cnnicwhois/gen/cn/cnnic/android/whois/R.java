@@ -30,58 +30,63 @@ public final class R {
         public static final int title=0x7f020010;
     }
     public static final class id {
-        public static final int allcheck=0x7f060014;
-        public static final int backQuery=0x7f060017;
+        public static final int backQuery=0x7f060004;
         public static final int button=0x7f060002;
-        public static final int cdn=0x7f060011;
-        public static final int ch=0x7f06000e;
-        public static final int chcom=0x7f060013;
-        public static final int chtable=0x7f06000d;
-        public static final int chtel=0x7f060012;
-        public static final int cn=0x7f060004;
-        public static final int com=0x7f060005;
-        public static final int comcn=0x7f060007;
-        public static final int company=0x7f06000f;
         public static final int domain=0x7f060001;
-        public static final int domainDetail=0x7f060018;
-        public static final int domainResult=0x7f060015;
-        public static final int domainWhoisDetail=0x7f060019;
-        public static final int govcn=0x7f060009;
-        public static final int info=0x7f06000b;
-        public static final int internet=0x7f060010;
-        public static final int listView=0x7f060016;
-        public static final int net=0x7f060006;
-        public static final int netcn=0x7f060008;
-        public static final int org=0x7f06000a;
-        public static final int resultDomain=0x7f06001a;
-        public static final int resultText=0x7f06001b;
+        public static final int domainDetail=0x7f060005;
+        public static final int domainWhoisDetail=0x7f060006;
+        public static final int listView=0x7f060003;
+        public static final int resultDomain=0x7f060007;
+        public static final int resultText=0x7f060008;
+        public static final int result_tld=0x7f06000b;
         public static final int search=0x7f060000;
-        public static final int table=0x7f060003;
-        public static final int tel=0x7f06000c;
+        public static final int showManage=0x7f060009;
+        public static final int tldListView=0x7f06000e;
+        public static final int tld_add_btn=0x7f06000a;
+        public static final int tld_delete_btn=0x7f06000d;
+        public static final int tld_modify_btn=0x7f06000c;
     }
     public static final class layout {
         public static final int index=0x7f030000;
         public static final int main=0x7f030001;
-        public static final int result=0x7f030002;
-        public static final int result_detail=0x7f030003;
-        public static final int result_item=0x7f030004;
-        public static final int search=0x7f030005;
-        public static final int title=0x7f030006;
+        public static final int menu=0x7f030002;
+        public static final int result=0x7f030003;
+        public static final int result_detail=0x7f030004;
+        public static final int result_item=0x7f030005;
+        public static final int search=0x7f030006;
+        public static final int single=0x7f030007;
+        public static final int title=0x7f030008;
+        public static final int title_tld=0x7f030009;
+        public static final int tld_item=0x7f03000a;
+        public static final int tld_manage=0x7f03000b;
     }
     public static final class string {
         public static final int allcheck=0x7f04000a;
         public static final int app_name=0x7f040000;
         public static final int back=0x7f04000b;
+        public static final int confirm_no=0x7f040019;
+        public static final int confirm_tld_delete=0x7f040017;
+        public static final int confirm_yes=0x7f040018;
         public static final int data_load_error=0x7f040006;
         public static final int data_query_error=0x7f040007;
+        public static final int domain_cat_manage=0x7f040012;
         public static final int domain_has_not_registered=0x7f040004;
         public static final int domain_has_registered=0x7f040003;
+        public static final int domain_mark_manage=0x7f040013;
         public static final int emptyinput=0x7f040002;
         public static final int init_error=0x7f040001;
         public static final int inputhint=0x7f04000c;
         public static final int loading=0x7f040008;
+        public static final int manage_hobby=0x7f04000f;
+        public static final int manage_tld=0x7f04000e;
         public static final int query=0x7f040009;
         public static final int query_validate_unpass=0x7f040005;
+        public static final int setting=0x7f040011;
+        public static final int single_query=0x7f04000d;
+        public static final int tld_add=0x7f040014;
+        public static final int tld_delete=0x7f040016;
+        public static final int tld_modify=0x7f040015;
+        public static final int whois_query=0x7f040010;
     }
     public static final class style {
         public static final int CustomWindowTitleBackground=0x7f050000;

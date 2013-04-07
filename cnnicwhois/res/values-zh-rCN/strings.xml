@@ -13,4 +13,20 @@
 	<string name="allcheck">全选</string>
 	<string name="back">返回</string>
 	<string name="inputhint">请输入域名或域名前缀</string>
+	
+	
+	<string name="whois_query">whois查询</string>
+	
+	<string name="setting">设置</string>
+	
+	<string name="domain_cat_manage">域名类别管理</string>
+	<string name="domain_mark_manage">域名收藏管理</string>
+	
+	<string name="tld_add">增加</string>
+	<string name="tld_modify">修改</string>
+	<string name="tld_delete">删除</string>
+	
+	<string name="confirm_tld_delete">确定删除</string>
+	<string name="confirm_yes">是</string>
+	<string name="confirm_no">否</string>
 </resources>

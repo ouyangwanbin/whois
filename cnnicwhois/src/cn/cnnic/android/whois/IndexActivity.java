@@ -16,7 +16,7 @@ public class IndexActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);  // Òþ²Ø×´Ì¬À¸
         setContentView(R.layout.index);
         
-        final Intent intent = new Intent(this,MainActivity.class);
+        final Intent intent = new Intent(this,MenuActivity.class);
         new Handler().postDelayed(new Runnable(){
 			@Override
 			public void run() {

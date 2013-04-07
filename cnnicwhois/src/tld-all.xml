@@ -2,6 +2,7 @@
 <tlds>
 	<tld>
 		<name>.ac</name>
+		<show>0</show>
 		<server>whois.nic.ac</server>
 	</tld>
 	<tld>
@@ -52,10 +53,7 @@
 		<name>.bg</name>
 		<server>whois.register.bg</server>
 	</tld>
-	<tld>
-		<name>.biz</name>
-		<server>whois.biz</server>
-	</tld>
+	
 	<tld>
 		<name>.bj</name>
 		<server>whois.nic.bj</server>
@@ -517,5 +515,26 @@
 		<name>net.cn</name>
 		<server>whois.cnnic.cn</server>
 		<notfind>no matching record</notfind>
+	</tld>
+	
+	<tld>
+		<name>.中国</name>
+		<server>cwhois.cnnic.cn</server>
+		<notfind>no matching record</notfind>
+	</tld>
+	<tld>
+		<name>.公司</name>
+		<server>cwhois.cnnic.cn</server>
+		<notfind>no matching record</notfind>
+	</tld>
+	<tld>
+		<name>.网络</name>
+		<server>cwhois.cnnic.cn</server>
+		<notfind>no matching record</notfind>
+	</tld>
+	<tld>
+		<name>.com</name>
+		<server>whois.verisign-grs.com</server>
+		<notfind>No match for</notfind>
 	</tld>
 </tlds>

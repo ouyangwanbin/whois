@@ -2,16 +2,19 @@
 <tlds>
 	<tld>
 		<name>.com</name>
+		<show>1</show>
 		<server>whois.verisign-grs.com</server>
 		<notfind>No match for</notfind>
 	</tld>
 	<tld>
 		<name>.tel</name>
+		<show>1</show>
 		<server>whois.verisign-grs.com</server>
 		<notfind>No match for</notfind>
 	</tld>
 	<tld>
 		<name>.net</name>
+		<show>1</show>
 		<server>whois.verisign-grs.com</server>
 		<notfind>No match for</notfind>
 	</tld>
@@ -22,53 +25,473 @@
 	</tld>
 	<tld>
 		<name>.info</name>
+		<show>1</show>
 		<server>whois.afilias.net</server>
 		<notfind>NOT FOUND</notfind>
 	</tld>
 	<tld>
 		<name>.cn</name>
+		<show>1</show>
 		<server>whois.cnnic.cn</server>
 		<notfind>no matching record</notfind>
 	</tld>
 	
 	<tld>
 		<name>.gov.cn</name>
+		<show>1</show>
 		<server>whois.cnnic.cn</server>
 		<notfind>no matching record</notfind>
 	</tld>
 	
 	<tld>
 		<name>.com.cn</name>
+		<show>1</show>
 		<server>whois.cnnic.cn</server>
 		<notfind>no matching record</notfind>
 	</tld>
 	
 	<tld>
 		<name>.net.cn</name>
+		<show>1</show>
 		<server>whois.cnnic.cn</server>
 		<notfind>no matching record</notfind>
 	</tld>
 	 	
 	<tld>
 		<name>.中国</name>
+		<show>1</show>
 		<server>cwhois.cnnic.cn</server>
 		<notfind>no matching record</notfind>
 	</tld>
 	<tld>
 		<name>.公司</name>
+		<show>1</show>
 		<server>cwhois.cnnic.cn</server>
 		<notfind>no matching record</notfind>
 	</tld>
 	<tld>
 		<name>.网络</name>
+		<show>1</show>
 		<server>cwhois.cnnic.cn</server>
 		<notfind>no matching record</notfind>
+	</tld>
+	
+	
+	
+	
+	<tld>
+		<name>.biz</name>
+		<show>0</show>
+		<server>whois.biz</server>
 	</tld>
 	
 	<tld>
-		<name>.cdn</name>
-		<server>cwhois.cnnic.cn</server>
-		<notfind>no matching record</notfind>
+		<name>.bj</name>
+		<show>0</show>
+		<server>whois.nic.bj</server>
 	</tld>
 	
+	
+	<tld>
+		<name>.ae</name>
+		<show>0</show>
+		<server>whois.aeda.net.ae</server>
+	</tld>
+	
+	<tld>
+		<name>.ag</name>
+		<show>0</show>
+		<server>whois.nic.ag</server>
+	</tld>
+	
+	
+	<tld>
+		<name>.ai</name>
+		<show>0</show>
+		<server>whois.ai</server>
+	</tld>
+	
+	<tld>
+		<name>.am</name>
+		<show>0</show>
+		<server>whois.amnic.net</server>
+	</tld>
+	
+	<tld>
+		<name>.as</name>
+		<show>0</show>
+		<server>whois.nic.as</server>
+	</tld>
+	
+	<tld>
+		<name>.at</name>
+		<show>0</show>
+		<server>whois.nic.at</server>
+	</tld>
+	
+	
+	
+	<tld>
+		<name>.au</name>
+		<show>0</show>
+		<server>whois.aunic.net</server>
+	</tld>
+	
+	
+	<tld>
+		<name>.be</name>
+		<show>0</show>
+		<server>whois.dns.be</server>
+	</tld>
+	
+	
+	<tld>
+		<name>.bg</name>
+		<show>0</show>
+		<server>whois.register.bg</server>
+	</tld>
+	
+
+	<tld>
+		<name>.br</name>
+		<show>0</show>
+		<server>whois.registro.br</server>
+	</tld>
+	<tld>
+		<name>.ca</name>
+		<show>0</show>
+		<server>whois.cira.ca</server>
+	</tld>
+	<tld>
+		<name>.cat</name>
+		<show>0</show>
+		<server>whois.cat</server>
+	</tld>
+	<tld>
+		<name>.cc</name>
+		<show>0</show>
+		<server>ccwhois.verisign-grs.com</server>
+	</tld>
+	
+	<tld>
+		<name>.ci</name>
+		<show>0</show>
+		<server>whois.nic.ci</server>
+	</tld>
+	<tld>
+		<name>.cl</name>
+		<show>0</show>
+		<server>whois.nic.cl</server>
+	</tld>
+
+	<tld>
+		<name>.cx</name>
+		<show>0</show>
+		<server>whois.nic.cx</server>
+	</tld>
+	<tld>
+		<name>.de</name>
+		<show>0</show>
+		<server>whois.denic.de</server>
+	</tld>
+	<tld>
+		<name>.dm</name>
+		<show>0</show>
+		<server>whois.nic.dm</server>
+	</tld>
+	<tld>
+		<name>.edu</name>
+		<show>0</show>
+		<server>whois.educause.edu</server>
+	</tld>
+	<tld>
+		<name>.eu</name>
+		<show>0</show>
+		<server>whois.eu</server>
+	</tld>
+	<tld>
+		<name>.fi</name>
+		<show>0</show>
+		<server>whois.ficora.fi</server>
+	</tld>
+	<tld>
+		<name>.gd</name>
+		<show>0</show>
+		<server>whois.adamsnames.com</server>
+	</tld>
+	<tld>
+		<name>.gg</name>
+		<show>0</show>
+		<server>whois.channelisles.net</server>
+	</tld>
+	<tld>
+		<name>.gi</name>
+		<show>0</show>
+		<server>whois2.afilias-grs.net</server>
+	</tld>
+	<tld>
+		<name>.gov</name>
+		<show>0</show>
+		<server>whois.dotgov.gov</server>
+	</tld>
+	<tld>
+		<name>.gs</name>
+		<show>0</show>
+		<server>whois.nic.gs</server>
+	</tld>
+	<tld>
+		<name>.gy</name>
+		<show>0</show>
+		<server>whois.registry.gy</server>
+	</tld>
+	<tld>
+		<name>.hk</name>
+		<show>0</show>
+		<server>whois.hkirc.hk</server>
+	</tld>
+	<tld>
+		<name>.ht</name>
+		<show>0</show>
+		<server>whois.nic.ht</server>
+	</tld>
+	<tld>
+		<name>.ie</name>
+		<show>0</show>
+		<server>whois.domainregistry.ie</server>
+	</tld>
+	<tld>
+		<name>.il</name>
+		<show>0</show>
+		<server>whois.isoc.org.il</server>
+	</tld>
+	<tld>
+		<name>.in</name>
+		<show>0</show>
+		<server>whois.inregistry.net</server>
+	</tld>
+	<tld>
+		<name>.info</name>
+		<show>0</show>
+		<server>whois.afilias.net</server>
+	</tld>
+	<tld>
+		<name>.io</name>
+		<show>0</show>
+		<server>whois.nic.io</server>
+	</tld>
+	<tld>
+		<name>.it</name>
+		<show>0</show>
+		<server>whois.nic.it</server>
+	</tld>
+	<tld>
+		<name>.je</name>
+		<show>0</show>
+		<server>whois.channelisles.net</server>
+	</tld>
+	<tld>
+		<name>.jobs</name>
+		<show>0</show>
+		<server>jobswhois.verisign-grs.com</server>
+	</tld>
+	<tld>
+		<name>.jp</name>
+		<show>0</show>
+		<server>whois.jprs.jp</server>
+	</tld>
+	<tld>
+		<name>.ke</name>
+		<show>0</show>
+		<server>whois.kenic.or.ke</server>
+	</tld>
+	<tld>
+		<name>.ki</name>
+		<show>0</show>
+		<server>whois.nic.ki</server>
+	</tld>
+	<tld>
+		<name>.kr</name>
+		<show>0</show>
+		<server>whois.nic.or.kr</server>
+	</tld>
+	<tld>
+		<name>.la</name>
+		<show>0</show>
+		<server>whois.nic.la</server>
+	</tld>
+	<tld>
+		<name>.lt</name>
+		<show>0</show>
+		<server>whois.domreg.lt</server>
+	</tld>
+	<tld>
+		<name>.lu</name>
+		<show>0</show>
+		<server>whois.dns.lu</server>
+	</tld>
+	<tld>
+		<name>.lv</name>
+		<show>0</show>
+		<server>whois.nic.lv</server>
+	</tld>
+	<tld>
+		<name>.ly</name>
+		<show>0</show>
+		<server>whois.nic.ly</server>
+	</tld>
+	<tld>
+		<name>.ma</name>
+		<show>0</show>
+		<server>whois.iam.net.ma</server>
+	</tld>
+	<tld>
+		<name>.md</name>
+		<show>0</show>
+		<server>whois.nic.md</server>
+	</tld>
+	<tld>
+		<name>.me</name>
+		<show>0</show>
+		<server>whois.nic.me</server>
+	</tld>
+	<tld>
+		<name>.mg</name>
+		<show>0</show>
+		<server>whois.nic.mg</server>
+	</tld>
+	<tld>
+		<name>.mobi</name>
+		<show>0</show>
+		<server>whois.dotmobiregistry.net</server>
+	</tld>
+	<tld>
+		<name>.mu</name>
+		<show>0</show>
+		<server>whois.nic.mu</server>
+	</tld>
+	<tld>
+		<name>.name</name>
+		<show>0</show>
+		<server>whois.nic.name</server>
+	</tld>
+	<tld>
+		<name>.net</name>
+		<show>1</show>
+		<server>whois.verisign-grs.com</server>
+	</tld>
+	<tld>
+		<name>.nl</name>
+		<show>0</show>
+		<server>whois.domain-registry.nl</server>
+	</tld>
+	<tld>
+		<name>.no</name>
+		<show>0</show>
+		<server>whois.norid.no</server>
+	</tld>
+	<tld>
+		<name>.nu</name>
+		<show>0</show>
+		<server>whois.nic.nu</server>
+	</tld>
+	<tld>
+		<name>.org</name>
+		<show>0</show>
+		<server>whois.publicinterestregistry.net</server>
+	</tld>
+	<tld>
+		<name>.pr</name>
+		<show>0</show>
+		<server>whois.nic.pr</server>
+	</tld>
+	<tld>
+		<name>.sa</name>
+		<show>0</show>
+		<server>whois.nic.net.sa</server>
+	</tld>
+	<tld>
+		<name>.sb</name>
+		<show>0</show>
+		<server>whois.nic.net.sb</server>
+	</tld>
+	<tld>
+		<name>.sc</name>
+		<show>0</show>
+		<server>whois2.afilias-grs.net</server>
+	</tld>
+	<tld>
+		<name>.se</name>
+		<show>0</show>
+		<server>whois.iis.se</server>
+	</tld>
+	<tld>
+		<name>.sg</name>
+		<show>0</show>
+		<server>whois.nic.net.sg</server>
+	</tld>
+	<tld>
+		<name>.sh</name>
+		<show>0</show>
+		<server>whois.nic.sh</server>
+	</tld>
+	<tld>
+		<name>.tc</name>
+		<show>0</show>
+		<server>whois.adamsnames.tc</server>
+	</tld>
+	<tld>
+		<name>.th</name>
+		<show>0</show>
+		<server>whois.thnic.co.th</server>
+	</tld>
+	<tld>
+		<name>.tl</name>
+		<show>0</show>
+		<server>whois.nic.tl</server>
+	</tld>
+	<tld>
+		<name>.tm</name>
+		<show>0</show>
+		<server>whois.nic.tm</server>
+	</tld>
+	<tld>
+		<name>.to</name>
+		<show>0</show>
+		<server>whois.tonic.to</server>
+	</tld>
+	<tld>
+		<name>.tv</name>
+		<show>0</show>
+		<server>tvwhois.verisign-grs.com</server>
+	</tld>
+	<tld>
+		<name>.tw</name>
+		<show>0</show>
+		<server>whois.twnic.net.tw</server>
+	</tld>
+	<tld>
+		<name>.us</name>
+		<show>0</show>
+		<server>whois.nic.us</server>
+	</tld>
+	<tld>
+		<name>.uz</name>
+		<show>0</show>
+		<server>whois.cctld.uz</server>
+	</tld>
+	<tld>
+		<name>.vc</name>
+		<show>0</show>
+		<server>whois2.afilias-grs.net</server>		
+	</tld>
+	<tld>
+		<name>.vg</name>
+		<show>0</show>
+		<server>whois.adamsnames.tc</server>
+	</tld>
+	<tld>
+		<name>.ws</name>
+		<show>0</show>
+		<server>whois.website.ws</server>
+	</tld>
 </tlds>

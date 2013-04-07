@@ -13,4 +13,11 @@
 	<string name="allcheck">all</string>
 	<string name="back">back</string>
 	<string name="inputhint">please enter domain</string>
+	
+	
+	<string name="single_query">single query</string>
+	
+	<string name="manage_tld">域名类别管理</string>
+	<string name="manage_hobby">域名收藏管理</string>
+	
 </resources>

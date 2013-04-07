@@ -3,16 +3,13 @@ package cn.cnnic.android.whois.service;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.net.Socket;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import android.os.Handler;
 import android.util.Log;
 import cn.cnnic.android.whois.entity.Domain;
 import cn.cnnic.android.whois.entity.TldEntity;
+import cn.cnnic.android.whois.utils.DomainTool;
 import cn.cnnic.android.whois.utils.LanguageUtil;
-import cn.cnnic.android.whois.utils.PunycodeUtil;
-import cn.cnnic.android.whois.utils.StreamTool;
 
 public class WhoisService implements Runnable{
 	public static final String WHOIS = "whoisLog";
@@ -30,37 +27,38 @@ public class WhoisService implements Runnable{
 	
 	/** 执行一个whois的命令 */
 	public Domain execute() throws Exception {
-		Pattern p = Pattern.compile("[\u4e00-\u9fa5]+");
-		Matcher m = p.matcher(domainNameWithoutTld);
 		Socket socket = null;
 		BufferedInputStream in = null;
 		BufferedOutputStream out = null;
 		String command = null;
-		String domainServer = tldEntity.getTldServer();
 		String whois = domainNameWithoutTld.trim()+tldEntity.getTldName();
-		if(".cdn".equals(tldEntity.getTldName())){
-			whois = domainNameWithoutTld + ".cn";
-		}
 		domain.setDomainName(whois);
 		whois = LanguageUtil.chinese2Punycode(whois);
+		if(LanguageUtil.isChineseDomain(domainNameWithoutTld) && ".cn".equals(tldEntity.getTldName())){
+			//独立处理中文.cn的情况
+			command = whois+NEW_LINE;
+			tldEntity.setTldServer("cwhois.cnnic.cn");
+		}else if(LanguageUtil.isChineseDomain(domainNameWithoutTld) || LanguageUtil.isChineseDomain(tldEntity.getTldName())){
+			//如果是中文域名
+			command = whois+NEW_LINE;
+		}else{
+			//英文域名
+			command = "domain "+whois+NEW_LINE;
+		}
+		String domainServer = tldEntity.getTldServer();
+		Log.i("whoisLog","domainServer is :" + domainServer + " ; and whois is : " + whois);
 		socket = new Socket(domainServer, port);
 		socket.setSoTimeout(TIME_OUT);
 		in = new BufferedInputStream(socket.getInputStream(), bufferSize);
-		out = new BufferedOutputStream(socket.getOutputStream(), bufferSize);
-		if(m.find()){//中文
-			command = whois+NEW_LINE;
-		}else{//英文
-			command = "domain "+whois+NEW_LINE;
-		}		
+		out = new BufferedOutputStream(socket.getOutputStream(), bufferSize);	
 		out.write(command.getBytes(), 0, command.getBytes().length);
 		out.flush();
-		byte[] resultData = StreamTool.read(in);
+		byte[] resultData = DomainTool.read(in);
 		String result = new String(resultData, encoding);
-		Log.i(WHOIS, "result is : " + result);
-		if(result.contains(tldEntity.getNotfind()) || result.equals(tldEntity.getNotfind())){
-			domain.setDomainInfo("unregistered");
-		}else{
+		if(DomainTool.isRegistered(result)){
 			domain.setDomainInfo("registered");
+		}else{
+			domain.setDomainInfo("unregistered");
 		}
 		domain.setWhoisResult(result);
 		socket.close();

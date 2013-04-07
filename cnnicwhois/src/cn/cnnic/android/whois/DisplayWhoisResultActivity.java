@@ -28,7 +28,7 @@ import cn.cnnic.android.whois.service.UserPreferenceService;
 import cn.cnnic.android.whois.service.WhoisService;
 import cn.cnnic.android.whois.utils.LanguageUtil;
 
-public class DisplayResultActivity extends Activity {
+public class DisplayWhoisResultActivity extends Activity {
 	private static final int PROGRESS_DIALOG = 0;
 	private ProgressDialog progressDialog;
 	private Dialog domainDetailDialog;
@@ -63,7 +63,7 @@ public class DisplayResultActivity extends Activity {
 				if(tmp == resultSize){
 					dismissDialog(PROGRESS_DIALOG);
 					backQuery.setVisibility(View.VISIBLE);
-	                listView.setAdapter(new WhoisAdapter(DisplayResultActivity.this,domainList,R.layout.result_item));
+	                listView.setAdapter(new WhoisAdapter(DisplayWhoisResultActivity.this,domainList,R.layout.result_item));
 				}
 			}		
 	};
@@ -71,7 +71,7 @@ public class DisplayResultActivity extends Activity {
 	protected Dialog onCreateDialog(int id) {
         switch(id) {
         case PROGRESS_DIALOG:
-            progressDialog = new ProgressDialog(DisplayResultActivity.this);
+            progressDialog = new ProgressDialog(DisplayWhoisResultActivity.this);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             progressDialog.setMessage(getResources().getString(R.string.loading));
             progressDialog.setProgress(0);
@@ -93,11 +93,7 @@ public class DisplayResultActivity extends Activity {
         //¾«È·²éÑ¯
         if("accurate".equals(queryType)){
         	try {
-        		if(LanguageUtil.isChineseDomain(domainName)){
-        			preList = us.getUserPreference("tld-all-zh.xml");
-        		}else{
-        			preList = us.getUserPreference("tld-all-en.xml");
-        		}
+        			preList = us.getUserPreference("tld-recommend.xml",true);
         		for(TldEntity tld : preList){
         			if(tld.getTldName().equals(LanguageUtil.getDomainTld(domainName))){
         				WhoisService whoisService = new WhoisService();
@@ -109,7 +105,7 @@ public class DisplayResultActivity extends Activity {
         				break;
         			}
         		}
-        		Intent aintent = new Intent(this,MainActivity.class);
+        		Intent aintent = new Intent(this,WhoisActivity.class);
 	        	aintent.putExtra("domainResult",domain.getWhoisResult());
 	        	aintent.putExtra("domainName", domain.getDomainName());
 	        	setResult(Activity.RESULT_OK,aintent);
@@ -126,13 +122,13 @@ public class DisplayResultActivity extends Activity {
             listView = (ListView)this.findViewById(R.id.listView);
             backQuery = (Button)this.findViewById(R.id.backQuery);
         	showDialog(PROGRESS_DIALOG);
-        	domainDetailDialog = new Dialog(DisplayResultActivity.this);
+        	domainDetailDialog = new Dialog(DisplayWhoisResultActivity.this);
         	domainDetailDialog.setContentView(R.layout.result_detail);
         	domainDetailText=(TextView) domainDetailDialog.findViewById(R.id.domainWhoisDetail);
         	String tlds = intent.getExtras().getString("tlds");
             String[] tldArray = tlds.split(",");
             try {
-            	preList = us.getUserPreference("tld-recommend.xml");
+            	preList = us.getUserPreference("tld-recommend.xml",true);
     			pool = Executors.newFixedThreadPool(tldArray.length);
     			resultSize = tldArray.length;
     			List<TldEntity> filteredList =  filterTheTldsUnchoose(tldArray,preList);
