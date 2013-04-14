@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    
+    <TableLayout 
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center_horizontal"
+        	android:gravity="center"
+        	android:shrinkColumns="1"
+        	android:paddingLeft="3dip"
+        	android:paddingRight="3dip"
+        >
+        
+         <TableRow 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            >
+   			 <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/tld_name"
+        	/>
+    
+    		<EditText 
+		        android:layout_width="200dp"
+				android:layout_height="wrap_content"
+				android:id="@+id/tld_name"
+				android:layout_marginLeft="3dip"
+			/>
+   		</TableRow>
+        
+        <TableRow 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            >
+   			 <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/tld_server"
+        	/>
+    
+    		<EditText 
+		        android:layout_width="200dp"
+				android:layout_height="wrap_content"
+				android:id="@+id/tld_detail_dialog_server"
+				android:layout_marginLeft="3dip"
+			/>
+   		</TableRow>
+   		
+            
+        <TableRow 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            >
+   			 <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/tld_show_status"
+        	/>
+    
+    		<RadioGroup 
+		        android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/tld_detail_dialog_show_group"
+				android:layout_marginLeft="3dip"
+				android:orientation="horizontal"
+			>
+    		    <RadioButton
+					android:id="@+id/tld_radio_show"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/tld_show_status_show"
+				/>
+	
+				<RadioButton
+					android:id="@+id/tld_radio_hide"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/tld_show_status_hide"
+				/>
+    		    
+    		</RadioGroup>
+   		</TableRow>
+    		
+    </TableLayout>
+    
+    <Button 
+		        android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				android:id="@+id/tld_available_test_btn"
+				android:layout_marginTop="15dip"
+				android:text="@string/tld_available_test"
+			/>
+        
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="15dip"
+        >
+        <Button 
+		        android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/tld_save_btn"
+				android:text="@string/tld_save"
+			/>
+    </LinearLayout>
+</LinearLayout>

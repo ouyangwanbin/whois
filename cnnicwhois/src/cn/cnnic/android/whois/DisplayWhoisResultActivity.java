@@ -14,8 +14,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -30,7 +30,6 @@ import cn.cnnic.android.whois.utils.LanguageUtil;
 
 public class DisplayWhoisResultActivity extends Activity {
 	private static final int PROGRESS_DIALOG = 0;
-	private ProgressDialog progressDialog;
 	private Dialog domainDetailDialog;
 	private List<TldEntity> preList;
 	private ListView listView;
@@ -40,6 +39,10 @@ public class DisplayWhoisResultActivity extends Activity {
 	private List<Domain> domainList = new ArrayList<Domain>();
 	private static String queryType;
 	private Button backQuery;
+	private UserPreferenceService up;
+	private Button markBtn;
+	private WhoisAdapter whoisAdapter;
+
 	
 	
 	
@@ -52,40 +55,12 @@ public class DisplayWhoisResultActivity extends Activity {
 		        }
     }
 	
-	private Handler mHandler = new Handler(){
-		private int tmp = 0;
-		@Override
-		public void handleMessage(Message msg) {
-			    Domain domain = (Domain)msg.obj;
-				domainList.add(domain);
-				progressDialog.setProgress(100*tmp/resultSize);
-				tmp++;
-				if(tmp == resultSize){
-					dismissDialog(PROGRESS_DIALOG);
-					backQuery.setVisibility(View.VISIBLE);
-	                listView.setAdapter(new WhoisAdapter(DisplayWhoisResultActivity.this,domainList,R.layout.result_item));
-				}
-			}		
-	};
-	
-	protected Dialog onCreateDialog(int id) {
-        switch(id) {
-        case PROGRESS_DIALOG:
-            progressDialog = new ProgressDialog(DisplayWhoisResultActivity.this);
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            progressDialog.setMessage(getResources().getString(R.string.loading));
-            progressDialog.setProgress(0);
-            return progressDialog;
-        default:
-            return null;
-        }
-    }
 	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UserPreferenceService us = new UserPreferenceService();
+        up = new UserPreferenceService(this);
         Intent intent = getIntent();
         Domain domain = new Domain();
         String domainName = intent.getExtras().getString("domainName");
@@ -93,12 +68,11 @@ public class DisplayWhoisResultActivity extends Activity {
         //精确查询
         if("accurate".equals(queryType)){
         	try {
-        			preList = us.getUserPreference("tld-recommend.xml",true);
+        			preList = up.getUserPreference(true);
         		for(TldEntity tld : preList){
         			if(tld.getTldName().equals(LanguageUtil.getDomainTld(domainName))){
         				WhoisService whoisService = new WhoisService();
         				whoisService.setDomainNameWithoutTld(LanguageUtil.getDomainNameWithoutTld(domainName));
-        				whoisService.setmHandler(mHandler);
         				whoisService.setEncoding("UTF-8");
         				whoisService.setTldEntity(tld);
         				domain = whoisService.execute();
@@ -125,25 +99,23 @@ public class DisplayWhoisResultActivity extends Activity {
         	domainDetailDialog = new Dialog(DisplayWhoisResultActivity.this);
         	domainDetailDialog.setContentView(R.layout.result_detail);
         	domainDetailText=(TextView) domainDetailDialog.findViewById(R.id.domainWhoisDetail);
+        	markBtn=(Button)domainDetailDialog.findViewById(R.id.domainMarkBtn);
         	String tlds = intent.getExtras().getString("tlds");
             String[] tldArray = tlds.split(",");
+            List<Domain> domainList = new ArrayList<Domain>();
             try {
-            	preList = us.getUserPreference("tld-recommend.xml",true);
-    			pool = Executors.newFixedThreadPool(tldArray.length);
+    			preList = up.getUserPreference(true);
     			resultSize = tldArray.length;
     			List<TldEntity> filteredList =  filterTheTldsUnchoose(tldArray,preList);
     			for(TldEntity tldEntity : filteredList){
-    				WhoisService whoisService = new WhoisService();
-    				whoisService.setDomainNameWithoutTld(domainName);
-    				whoisService.setmHandler(mHandler);
-    				whoisService.setEncoding("UTF-8");
-    				whoisService.setTldEntity(tldEntity);
-    				pool.execute(whoisService);
+    				domainList.add(new Domain(domainName+tldEntity.getTldName()));
     			}
     		} catch (Exception e) {
     			Toast.makeText(getApplicationContext(), R.string.query_validate_unpass, 1).show();
     			e.printStackTrace();
     		}
+            whoisAdapter=new WhoisAdapter(DisplayWhoisResultActivity.this,domainList,R.layout.result_item);
+            listView.setAdapter(whoisAdapter);
             listView.setOnItemClickListener(new ItemClick(listView));
             domainDetailText.setOnClickListener(new DomainDetailClick());
         }
@@ -157,10 +129,35 @@ public class DisplayWhoisResultActivity extends Activity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			Domain domain = (Domain)listView.getItemAtPosition(position);
+			final Domain domain = (Domain)listView.getItemAtPosition(position);
 			domainDetailDialog.setTitle(domain.getDomainName());
             domainDetailText.setText(domain.getWhoisResult());
+            //如果已经收藏，则不会出现收藏按钮
+            try {
+				if(up.isMarked(domain.getDomainName())){
+					markBtn.setVisibility(View.GONE);
+				}else{
+					markBtn.setVisibility(View.VISIBLE);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
             domainDetailDialog.show();
+            
+            markBtn.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					try {
+						up.updateMarkList(domain.getDomainName(), "add");
+						whoisAdapter.notifyDataSetChanged();
+						domainDetailDialog.dismiss();
+					} catch (Exception e) {
+						Toast.makeText(getApplicationContext(), R.string.tld_save_error,1);
+						e.printStackTrace();
+					}
+				}
+            	
+            });
 		}
     	
     }

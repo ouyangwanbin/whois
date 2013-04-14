@@ -1,12 +1,15 @@
 package cn.cnnic.android.whois;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -29,6 +32,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.cnnic.android.whois.entity.DomainMark;
 import cn.cnnic.android.whois.entity.TldEntity;
 import cn.cnnic.android.whois.service.UserPreferenceService;
 import cn.cnnic.android.whois.utils.LanguageUtil;
@@ -45,6 +49,8 @@ public class WhoisActivity extends Activity {
 	private Dialog domainDetailDialog;
 	private TextView domainDetailText;
 	private Resources resources;
+	private Button settingBtn;
+	private Button markBtn;
 	
 	private LinearLayout.LayoutParams LP_FF = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);     
 	private LinearLayout.LayoutParams LP_FW = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);     
@@ -62,14 +68,15 @@ public class WhoisActivity extends Activity {
 
 		}
 	}
-
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		up = new UserPreferenceService();
+		up = new UserPreferenceService(this);
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		resources = getResources();
+		
 		LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.VERTICAL);//垂直布局
         Drawable drawable = resources.getDrawable(R.drawable.background);
@@ -79,13 +86,15 @@ public class WhoisActivity extends Activity {
        
 		//动态添加table
 		table = new TableLayout(this);
+		table.setGravity(Gravity.CENTER);
 		try {
-			tlds = up.getUserPreference("tld-recommend.xml",true);
+			tlds = up.getUserPreference(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		if(tlds != null && tlds.size()>0){
 			int size = tlds.size();
+			int offset = (3-size%3);
 			int rownum = (size/3)+1;
 			for(int i = 0 ; i<rownum ; i++){
 				TableRow row = new TableRow(this);
@@ -95,18 +104,27 @@ public class WhoisActivity extends Activity {
 					checkBox.setText(tlds.get(3*i+j).getTldName());
 					row.addView(checkBox);
 				}
+				//站位用的checkbox
+				if(i == (rownum-1)){
+					for(int k=0 ; k<offset;k++){
+						CheckBox checkBox = new CheckBox(this);
+						checkBox.setVisibility(View.INVISIBLE);
+						row.addView(checkBox);
+					}
+				}
 				table.addView(row);
 			}
 			linearLayout.addView(table,TP_FW);
 		}
 		setContentView(linearLayout,LP_FF);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title);
+		settingBtn = (Button)this.findViewById(R.id.showManage);
+   	 	//settingBtn.setVisibility(View.VISIBLE);
 		button = (Button) this.findViewById(R.id.button);
 		domainText = (EditText) this.findViewById(R.id.domain);
 		domainText.addTextChangedListener(new DomainTextWatcher());
 	}
 
-	
 	private class DomainTextWatcher implements TextWatcher {
 
 		@Override
@@ -217,7 +235,32 @@ public class WhoisActivity extends Activity {
 			domainDetailDialog.setContentView(R.layout.result_detail);
 			domainDetailText = (TextView) domainDetailDialog
 					.findViewById(R.id.domainWhoisDetail);
-			domainDetailDialog.setTitle(data.getStringExtra("domainName"));
+			markBtn = (Button) domainDetailDialog
+					.findViewById(R.id.domainMarkBtn);
+			final String domainName = data.getStringExtra("domainName");
+			domainDetailDialog.setTitle(domainName);
+			try {
+				if(up.isMarked(domainName)){
+					markBtn.setVisibility(View.GONE);
+				}else{
+					markBtn.setVisibility(View.VISIBLE);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			 markBtn.setOnClickListener(new OnClickListener(){
+					@Override
+					public void onClick(View v) {
+						try {
+							up.updateMarkList(domainName, "add");
+							domainDetailDialog.dismiss();
+						} catch (Exception e) {
+							Toast.makeText(getApplicationContext(), R.string.tld_save_error,1);
+							e.printStackTrace();
+						}
+					}
+	            	
+	            });
 			domainDetailText.setText(data.getStringExtra("domainResult"));
 			domainDetailText.setOnClickListener(new DomainDetailClick());
 			domainDetailDialog.show();
@@ -225,6 +268,42 @@ public class WhoisActivity extends Activity {
 		}
 	}
 
+	 public void showManage(View v){
+	    	final CharSequence[] items = {getResources().getText(R.string.domain_cat_manage),getResources().getText(R.string.domain_mark_manage)};
+	    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    	builder.setItems(items, new DialogInterface.OnClickListener() {
+	    	    public void onClick(DialogInterface dialog, int item) {
+	    	    	if(item == 0){
+	    	    		//查询tld-recommend.xml
+	    	    		try {
+							List<TldEntity> tlds =  up.getUserPreference(false);
+							Intent intent = new Intent(WhoisActivity.this,TldManagerActivity.class);
+							intent.putExtra("tlds", (Serializable)tlds);
+							startActivity(intent);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+	    	    	}
+	    	    	if(item == 1){
+	    	    		//查询domain-mark.xml
+	    	    		List<DomainMark> markList = null;
+						try {
+							markList = up.getUsersDomainMark();
+						} catch (Exception e) {
+							Toast.makeText(getApplicationContext(), R.string.data_load_error, 1).show();
+							e.printStackTrace();
+						}
+	    	    		Intent intent = new Intent(WhoisActivity.this,MarkManagerActivity.class);
+						intent.putExtra("markList", (Serializable)markList);
+						startActivity(intent);
+	    	    	}
+	    	    }
+	    	});
+	    	AlertDialog alert = builder.create();
+	    	alert.show();
+	    }
+	    
+	
 	/**
 	 * 捕获双击事件，然后关闭dialog
 	 * 

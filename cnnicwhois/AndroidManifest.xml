@@ -3,7 +3,10 @@
     package="cn.cnnic.android.whois"
     android:versionCode="1"
     android:versionName="1.0" >
-
+ <!-- 加入在SDCard中创建与删除文件的权限 -->
+<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+<!-- 加入在SDCard中写入数据的权限 -->
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-sdk android:minSdkVersion="8" />
 
     <application
@@ -22,19 +25,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-            
-        <activity
-            android:label="@string/app_name"
-            android:name=".MenuActivity" 
-            android:configChanges="orientation" 
-            android:theme="@style/title_style"
-            >
-        </activity>
 
         <activity
             android:label="@string/app_name"
             android:name=".TldManagerActivity" 
+            android:configChanges="orientation" 
+            android:theme="@style/title_style"
+            >
+        </activity>
+        
+        <activity
+            android:label="@string/app_name"
+            android:name=".MarkManagerActivity" 
             android:configChanges="orientation" 
             android:theme="@style/title_style"
             >
@@ -55,7 +57,10 @@
             android:theme="@style/title_style"
             >
         </activity>
+    
+            
     </application>
 <instrumentation android:name="android.test.InstrumentationTestRunner" android:targetPackage="cn.cnnic.android.whois" android:label="Tests for db App"></instrumentation>
 <uses-permission android:name="android.permission.INTERNET" />
+
 </manifest>

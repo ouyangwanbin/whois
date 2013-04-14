@@ -9,6 +9,7 @@ package cn.cnnic.android.whois.utils;
  * @version 1.0
  */
 
+@SuppressWarnings("serial")
 public class PunyException extends java.lang.Exception implements java.io.Serializable{
 
   public PunyException() {

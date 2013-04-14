@@ -9,7 +9,7 @@
 	<tld>
 		<name>.tel</name>
 		<show>1</show>
-		<server>whois.verisign-grs.com</server>
+		<server>whois.nic.tel</server>
 		<notfind>No match for</notfind>
 	</tld>
 	<tld>
@@ -300,11 +300,6 @@
 		<server>whois.jprs.jp</server>
 	</tld>
 	<tld>
-		<name>.ke</name>
-		<show>0</show>
-		<server>whois.kenic.or.ke</server>
-	</tld>
-	<tld>
 		<name>.ki</name>
 		<show>0</show>
 		<server>whois.nic.ki</server>
@@ -318,11 +313,6 @@
 		<name>.la</name>
 		<show>0</show>
 		<server>whois.nic.la</server>
-	</tld>
-	<tld>
-		<name>.lt</name>
-		<show>0</show>
-		<server>whois.domreg.lt</server>
 	</tld>
 	<tld>
 		<name>.lu</name>
@@ -375,11 +365,6 @@
 		<server>whois.nic.name</server>
 	</tld>
 	<tld>
-		<name>.net</name>
-		<show>1</show>
-		<server>whois.verisign-grs.com</server>
-	</tld>
-	<tld>
 		<name>.nl</name>
 		<show>0</show>
 		<server>whois.domain-registry.nl</server>
@@ -423,11 +408,6 @@
 		<name>.se</name>
 		<show>0</show>
 		<server>whois.iis.se</server>
-	</tld>
-	<tld>
-		<name>.sg</name>
-		<show>0</show>
-		<server>whois.nic.net.sg</server>
 	</tld>
 	<tld>
 		<name>.sh</name>

@@ -16,7 +16,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_centerInParent="true"
-		android:text="@string/domain_cat_manage"
+		android:text="@string/domain_mark_manage"
 		android:textSize="16sp"
 		android:textScaleX="1.5"
 	/>

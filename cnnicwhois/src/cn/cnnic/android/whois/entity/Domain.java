@@ -2,9 +2,15 @@ package cn.cnnic.android.whois.entity;
 
 public class Domain {
 	private String domainName;
+	
 	private String whoisResult;
 	private String domainInfo;
+	public Domain() {
+	}
 	
+	public Domain(String domainName) {
+		this.domainName = domainName;
+	}
 	public String getDomainInfo() {
 		return domainInfo;
 	}

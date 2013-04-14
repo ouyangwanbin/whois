@@ -9,8 +9,6 @@ package cn.cnnic.android.whois.utils;
  * @version 1.0
  */
 
-import java.io.*;
-import java.util.*;
 
 public class PunycodeUtil {
 
@@ -18,19 +16,22 @@ public class PunycodeUtil {
       "Translate Error : input string is a null";
   private static final String punystr_bad_input =
       "Exception in change punycode to chinese,Input_Str is not punycode";
-  private static final String unicode_bad_input =
+  @SuppressWarnings("unused")
+private static final String unicode_bad_input =
       "Exception in change chinese to punycode,Input_Str is not unicode chinese";
   private static final String uninum_bad_input =
       "Exception in change U+num to chinese,Input_Str is not unicode num";
   private static final String too_long_output =
       "Output Error, Output would exceed the space provided(256 as default)";
   //public static final String output_meaningless = "Output Error, Output would contain some meaningless unicodes";
-  private static final String translate_cancel =
+  @SuppressWarnings("unused")
+private static final String translate_cancel =
       "Translate cancel nothing changed";
   private static final String Integer_overflow =
       "Input needs wider integers to process";
 
-  private static PunycodeUtil punycoder = null;
+  @SuppressWarnings("unused")
+private static PunycodeUtil punycoder = null;
 
   /**
    * change chinese string to punycode string
@@ -142,7 +143,8 @@ public class PunycodeUtil {
 
     char[] input = new char[unicode_max_length];
     char[] case_flags = new char[unicode_max_length];
-    String bad_input = "";
+    @SuppressWarnings("unused")
+	String bad_input = "";
 
     if (! ( (s_input.startsWith(u_big)) || (s_input.startsWith(u_small)))) {
       throw new PunyException(uninum_bad_input);
@@ -415,8 +417,10 @@ public class PunycodeUtil {
       throw new PunyException(input_string_null);
     }
     String rds = cdns;
-    String rtds = "", tds = "", rtds_u = "", resu_out = "";
-    int flag;
+    @SuppressWarnings("unused")
+	String rtds = "", tds = "", rtds_u = "", resu_out = "";
+    @SuppressWarnings("unused")
+	int flag;
     while (rds.indexOf(dndot) != -1) {
       tds = rds.substring(0, rds.indexOf(dndot));
       rds = rds.substring(rds.indexOf(dndot) + 1);
@@ -459,14 +463,15 @@ public class PunycodeUtil {
    * Modified by LiuYu 2004-11-19
    * if fail to transfer , throw PunyExceptions
    * ***/
-
+  @SuppressWarnings("unused")
   private static String punys_to_ocdn(String punys) throws PunyException {
     if (punys == null) {
       throw new PunyException(input_string_null);
     }
 
     String rds = punys;
-    String rtds = "", tds = "", rtds_u = "", resu_out = "", strpuny = "";
+    
+	String rtds = "", tds = "", rtds_u = "", resu_out = "", strpuny = "";
     int flag;
     int dec_ru, jtout_ru;
     while (rds.indexOf(dndot) != -1) {

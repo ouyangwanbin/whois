@@ -19,7 +19,7 @@ public class WhoisService implements Runnable{
 	private static String NEW_LINE = "\r\n";
 	private TldEntity tldEntity;
 	private String domainNameWithoutTld;
-	private String encoding;
+	private String encoding="UTF-8";
 	private String whoisResult;
 	private Handler mHandler;
 	private Domain domain = new Domain();
@@ -40,6 +40,9 @@ public class WhoisService implements Runnable{
 			tldEntity.setTldServer("cwhois.cnnic.cn");
 		}else if(LanguageUtil.isChineseDomain(domainNameWithoutTld) || LanguageUtil.isChineseDomain(tldEntity.getTldName())){
 			//如果是中文域名
+			command = whois+NEW_LINE;
+		}else if(".uk".equals(tldEntity.getTldName())){
+			//uk 域名特殊处理
 			command = whois+NEW_LINE;
 		}else{
 			//英文域名

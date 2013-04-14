@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<tlds>
-	<tld>
-		<name>.中国</name>
-		<server>cwhois.cnnic.cn</server>
-		<notfind>no matching record</notfind>
-	</tld>
-</tlds>

@@ -19,7 +19,6 @@
 		android:layout_alignParentRight="true"
 		android:text="@string/setting"
 		android:onClick="showManage"
-		android:visibility="gone"
 		android:id="@+id/showManage"
 	/>
 </RelativeLayout>

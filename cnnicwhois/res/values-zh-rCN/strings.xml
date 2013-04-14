@@ -8,7 +8,7 @@
 	<string name="query_validate_unpass">请选择域名后缀</string>
 	<string name="data_load_error">数据加载失败</string>
 	<string name="data_query_error">数据查询失败</string>
-	<string name="loading">数据加载，请等待...</string>
+	<string name="loading">请等待...</string>
 	<string name="query">查询</string>
 	<string name="allcheck">全选</string>
 	<string name="back">返回</string>
@@ -23,10 +23,33 @@
 	<string name="domain_mark_manage">域名收藏管理</string>
 	
 	<string name="tld_add">增加</string>
-	<string name="tld_modify">修改</string>
+	<string name="tld_save">保存</string>
 	<string name="tld_delete">删除</string>
 	
 	<string name="confirm_tld_delete">确定删除</string>
 	<string name="confirm_yes">是</string>
 	<string name="confirm_no">否</string>
+	
+	<string name="tld_name">后缀名</string>
+	<string name="tld_server">服务器</string>
+	<string name="tld_show_status">状态</string>
+	<string name="tld_available">可用性</string>
+	<string name="tld_available_test">测试连接</string>
+	
+	<string name="tld_show_status_show">显示</string>
+	<string name="tld_show_status_hide">隐藏</string>
+	
+	<string name="tld_available_success">连接可用</string>
+	<string name="tld_available_fail">无法连接</string>
+	
+	<string name="tld_add_title">添加后缀</string>
+	<string name="please_add_server">请添加服务器</string>
+	<string name="please_add_name">请添加后缀</string>
+	<string name="please_add_another_name">后缀已存在</string>
+	<string name="tld_delete_error">删除失败</string>
+	<string name="tld_save_error">保存失败</string>
+	
+	    
+	    
+	<string name="mark_save">收藏</string>
 </resources>
