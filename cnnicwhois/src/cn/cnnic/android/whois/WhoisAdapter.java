@@ -1,6 +1,8 @@
 package cn.cnnic.android.whois;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -21,13 +23,16 @@ import cn.cnnic.android.whois.utils.LanguageUtil;
 public class WhoisAdapter extends BaseAdapter {
 	private List<Domain> domainList;
 	private int resultItem;
+	private Context context;
 	private LayoutInflater layoutInflater;
 	private UserPreferenceService up ;
 	private List<TldEntity> tldList;
+	private Map<String , Domain> cache = new HashMap<String , Domain>();
 
 	public WhoisAdapter(Context context ,List<Domain> domainList, int resultItem) {
 		this.domainList = domainList;
 		this.resultItem = resultItem;
+		this.context = context;
 		up = new UserPreferenceService(context);
 		try {
 			this.tldList = up.getUserPreference(false);
@@ -44,24 +49,6 @@ public class WhoisAdapter extends BaseAdapter {
 	
 	public Object getItem(int position) {
 		return domainList.get(position);
-//		WhoisService whoisService = new WhoisService();
-//		whoisService.setDomainNameWithoutTld(LanguageUtil.getDomainNameWithoutTld(domain.getDomainName()));
-//		whoisService.setEncoding("UTF-8");
-//		String tldName = LanguageUtil.getDomainTld(domain.getDomainName());
-//		String whoisServer = "";
-//		for(TldEntity t : tldList){
-//			if(tldName.equals(t.getTldName())){
-//				whoisServer = t.getTldServer();
-//			}
-//		}
-//		TldEntity tld = new TldEntity(LanguageUtil.getDomainTld(domain.getDomainName()),whoisServer, 1);
-//		whoisService.setTldEntity(tld);
-//		try {
-//			domain = whoisService.execute();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return domain;
 	}
 
 	public long getItemId(int position) {
@@ -87,7 +74,6 @@ public class WhoisAdapter extends BaseAdapter {
 		Domain domain = domainList.get(position);
 		try {
 			if(up.isMarked(domain.getDomainName())){
-				Log.i("whoisLog", "mark : " + domain.getDomainName());
 				imageView.setVisibility(View.VISIBLE);
 			}else{
 				imageView.setVisibility(View.INVISIBLE);
@@ -95,7 +81,12 @@ public class WhoisAdapter extends BaseAdapter {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		asyncLoadResult(domainIsRegView,domain.getDomainName(),position);
+		domainIsRegView.setText(context.getResources().getString(R.string.loading));
+		if(null == cache.get(domain.getDomainName())){
+			asyncLoadResult(domainIsRegView,domain.getDomainName(),position);
+		}else{
+			inflaterRegView(domainIsRegView,cache.get(domain.getDomainName()));
+		}
 		domainNameTextView.setText(domain.getDomainName());
 		return convertView;
 	}
@@ -131,7 +122,7 @@ public class WhoisAdapter extends BaseAdapter {
 				result = whoisService.execute();
 				Domain domain = domainList.get(Integer.parseInt(params[1]));
 				domain.setWhoisResult(result.getWhoisResult());
-				domain.setDomainInfo(result.getWhoisResult());
+				domain.setDomainInfo(result.getDomainInfo());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -141,16 +132,21 @@ public class WhoisAdapter extends BaseAdapter {
 		
 		@Override
 		protected void onPostExecute(Domain result) {
-			if(result != null && domainIsRegView != null){
-				if("unregistered".equals(result.getDomainInfo())){
-					domainIsRegView.setText(R.string.domain_has_not_registered);
-					domainIsRegView.setTextColor(Color.BLUE);
-				}else if("registered".equals(result.getDomainInfo())){
-					domainIsRegView.setText(R.string.domain_has_registered);
-					domainIsRegView.setTextColor(Color.RED);
-				}else{
-					domainIsRegView.setText(R.string.data_query_error);
-				}
+			inflaterRegView(domainIsRegView,result);
+			cache.put(result.getDomainName(), result);
+		}
+	}
+	
+	private void inflaterRegView(TextView domainIsRegView,Domain result){
+		if(result != null && domainIsRegView != null){
+			if("unregistered".equals(result.getDomainInfo())){
+				domainIsRegView.setText(R.string.domain_has_not_registered);
+				domainIsRegView.setTextColor(Color.BLUE);
+			}else if("registered".equals(result.getDomainInfo())){
+				domainIsRegView.setText(R.string.domain_has_registered);
+				domainIsRegView.setTextColor(Color.RED);
+			}else{
+				domainIsRegView.setText(R.string.data_query_error);
 			}
 		}
 	}

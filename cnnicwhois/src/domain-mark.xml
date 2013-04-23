@@ -1,7 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
 <domains>
 	<domain>
-		<name>baidu.cn</name>
-		<whois>whois.cnnic.cn</whois>
+		<name>baidu.com</name>
+		<whois>whois.verisign-grs.com</whois>
+	</domain>
+	<domain>
+		<name>baidu.info</name>
+		<whois>whois.afilias.net</whois>
+	</domain>
+	<domain>
+		<name>get.com</name>
+		<whois>whois.verisign-grs.com</whois>
+	</domain>
+	<domain>
+		<name>baidu.com</name>
+		<whois>whois.verisign-grs.com</whois>
 	</domain>
 </domains>

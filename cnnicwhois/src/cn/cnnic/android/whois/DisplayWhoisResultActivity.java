@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.regex.Matcher;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -19,6 +20,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ import cn.cnnic.android.whois.entity.TldEntity;
 import cn.cnnic.android.whois.service.UserPreferenceService;
 import cn.cnnic.android.whois.service.WhoisService;
 import cn.cnnic.android.whois.utils.LanguageUtil;
+import cn.cnnic.android.whois.RegistrarManageActivity;
 
 public class DisplayWhoisResultActivity extends Activity {
 	private static final int PROGRESS_DIALOG = 0;
@@ -38,9 +41,9 @@ public class DisplayWhoisResultActivity extends Activity {
 	private TextView domainDetailText;
 	private List<Domain> domainList = new ArrayList<Domain>();
 	private static String queryType;
-	private Button backQuery;
 	private UserPreferenceService up;
 	private Button markBtn;
+	private Button registerBtn;
 	private WhoisAdapter whoisAdapter;
 
 	
@@ -93,13 +96,37 @@ public class DisplayWhoisResultActivity extends Activity {
         	requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         	setContentView(R.layout.result);
         	getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.title);
+
+        	final ImageView backImage = (ImageView)this.findViewById(R.id.tld_back_btn);
+        	backImage.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					backImage.setVisibility(View.GONE);
+					DisplayWhoisResultActivity.this.finish();
+				}
+        		
+        	});
+        	
+        	
             listView = (ListView)this.findViewById(R.id.listView);
-            backQuery = (Button)this.findViewById(R.id.backQuery);
         	showDialog(PROGRESS_DIALOG);
         	domainDetailDialog = new Dialog(DisplayWhoisResultActivity.this);
         	domainDetailDialog.setContentView(R.layout.result_detail);
         	domainDetailText=(TextView) domainDetailDialog.findViewById(R.id.domainWhoisDetail);
         	markBtn=(Button)domainDetailDialog.findViewById(R.id.domainMarkBtn);
+        	registerBtn=(Button)domainDetailDialog.findViewById(R.id.registerBtn);
+        	final Intent it = new Intent(this,RegistrarManageActivity.class);
+        	registerBtn.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					domainDetailDialog.dismiss();
+					DisplayWhoisResultActivity.this.startActivity(it);
+					DisplayWhoisResultActivity.this.finish();
+				}
+        		
+        	});
+        	
+        	
         	String tlds = intent.getExtras().getString("tlds");
             String[] tldArray = tlds.split(",");
             List<Domain> domainList = new ArrayList<Domain>();
@@ -130,6 +157,10 @@ public class DisplayWhoisResultActivity extends Activity {
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			final Domain domain = (Domain)listView.getItemAtPosition(position);
+			if(!"unregistered".equals(domain.getDomainInfo())){
+				registerBtn.setVisibility(View.GONE);
+			}
+			
 			domainDetailDialog.setTitle(domain.getDomainName());
             domainDetailText.setText(domain.getWhoisResult());
             //如果已经收藏，则不会出现收藏按钮

@@ -13,7 +13,7 @@
 	<string name="allcheck">全选</string>
 	<string name="back">返回</string>
 	<string name="inputhint">请输入域名或域名前缀</string>
-	
+	<string name="unable_to_load_expiredate">无法获取到期日期</string>
 	
 	<string name="whois_query">whois查询</string>
 	
@@ -50,6 +50,13 @@
 	<string name="tld_save_error">保存失败</string>
 	
 	    
-	    
+	<string name="inputerror">域名输入不合法</string>
 	<string name="mark_save">收藏</string>
+	<string name="go_register">注册</string>
+	<string name="mark_delete">取消收藏</string>
+	<string name="registrar_title">注册商</string>
+	    
+	<string name="about_comment">给产品评分</string>
+	<string name="about_feedback">反馈给开发者</string>
+	<string name="about_developer">开发者：ouyangwanbin</string>
 </resources>

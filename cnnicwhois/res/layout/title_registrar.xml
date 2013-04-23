@@ -4,7 +4,7 @@
 	    android:layout_height="fill_parent"
 	    android:orientation="horizontal" >
  
-	 <ImageView
+	<ImageView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentLeft="true"
@@ -17,19 +17,9 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_centerInParent="true"
-		android:text="@string/domain_cat_manage"
+		android:text="@string/registrar_title"
 		android:textSize="16sp"
 		android:textScaleX="1.5"
-		android:layout_centerVertical="true"
 		android:textColor="#281f1d"
-	/>
-	
-	<ImageView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentRight="true"
-		android:id="@+id/tld_add_btn"
-		android:src="@drawable/contentnew"
-		android:layout_centerVertical="true"
 	/>
 </RelativeLayout>

@@ -59,8 +59,10 @@ public class WhoisService implements Runnable{
 		byte[] resultData = DomainTool.read(in);
 		String result = new String(resultData, encoding);
 		if(DomainTool.isRegistered(result)){
+			Log.i("whoisLog",domain.getDomainName() + " : registered..");
 			domain.setDomainInfo("registered");
 		}else{
+			Log.i("whoisLog",domain.getDomainName() + " : unregistered..");
 			domain.setDomainInfo("unregistered");
 		}
 		domain.setWhoisResult(result);

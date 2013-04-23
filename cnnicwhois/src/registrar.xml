@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<registrars>
+	<registrar>
+		<name>万网</name>
+		<address>http://www.net.com</address>
+		<default>N</default>
+	</registrar>
+	<registrar>
+		<name>新网</name>
+		<address>http://www.dns.com.cn</address>
+		<default>N</default>
+	</registrar>
+	<registrar>
+		<name>易名</name>
+		<address>http://www.ename.cn/</address>
+		<default>N</default>
+	</registrar>
+	<registrar>
+		<name>中资源</name>
+		<address>http://www.zzy.cn/</address>
+		<default>N</default>
+	</registrar>
+</registrars>

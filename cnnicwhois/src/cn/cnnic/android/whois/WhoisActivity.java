@@ -3,6 +3,8 @@ package cn.cnnic.android.whois;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,6 +16,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,6 +29,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TableLayout;
@@ -34,6 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import cn.cnnic.android.whois.entity.DomainMark;
 import cn.cnnic.android.whois.entity.TldEntity;
+import cn.cnnic.android.whois.service.MailService;
 import cn.cnnic.android.whois.service.UserPreferenceService;
 import cn.cnnic.android.whois.utils.LanguageUtil;
 
@@ -42,15 +47,17 @@ public class WhoisActivity extends Activity {
 	private EditText domainText;
 	private List<TldEntity> tlds;
 	private UserPreferenceService up;
-	private Button button;
+	private ImageView queryImage;
 	private TableLayout table;
 	private static final int QUERY_ACCURATE = 999;
 	private ProgressDialog loadingDialog;
 	private Dialog domainDetailDialog;
 	private TextView domainDetailText;
 	private Resources resources;
-	private Button settingBtn;
+	private ImageView settingImg;
 	private Button markBtn;
+	private Pattern pattern = Pattern.compile("^([a-zA-Z0-9\\u4e00-\\u9fa5](-?[a-zA-Z0-9\\u4e00-\\u9fa5]){0,62}){1,}$");
+
 	
 	private LinearLayout.LayoutParams LP_FF = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);     
 	private LinearLayout.LayoutParams LP_FW = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);     
@@ -79,9 +86,11 @@ public class WhoisActivity extends Activity {
 		
 		LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.VERTICAL);//垂直布局
+        
         Drawable drawable = resources.getDrawable(R.drawable.background);
         linearLayout.setBackgroundDrawable(drawable);
         View partView = getPartUI();
+       // LP_FW.bottomMargin = 20;
         linearLayout.addView(partView,LP_FW);
        
 		//动态添加table
@@ -114,13 +123,13 @@ public class WhoisActivity extends Activity {
 				}
 				table.addView(row);
 			}
+			TP_FW.setMargins(0, 10, 0, 0);
 			linearLayout.addView(table,TP_FW);
 		}
 		setContentView(linearLayout,LP_FF);
-		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title);
-		settingBtn = (Button)this.findViewById(R.id.showManage);
-   	 	//settingBtn.setVisibility(View.VISIBLE);
-		button = (Button) this.findViewById(R.id.button);
+		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title_home);
+		settingImg = (ImageView)this.findViewById(R.id.showManage);
+		queryImage = (ImageView) this.findViewById(R.id.button);
 		domainText = (EditText) this.findViewById(R.id.domain);
 		domainText.addTextChangedListener(new DomainTextWatcher());
 	}
@@ -176,9 +185,10 @@ public class WhoisActivity extends Activity {
 	public void queryDomain(View v) {
 		// 点击查询，隐藏键盘
 		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.hideSoftInputFromWindow(button.getApplicationWindowToken(), 0);
+		imm.hideSoftInputFromWindow(queryImage.getApplicationWindowToken(), 0);
 
 		String domainName = domainText.getText().toString();
+		
 		if (domainName == null || domainName.trim().length() == 0) {
 			Toast toast = Toast.makeText(getApplicationContext(),
 					R.string.emptyinput, 1);
@@ -186,6 +196,15 @@ public class WhoisActivity extends Activity {
 			toast.show();
 			return;
 		}
+		Matcher matcher = pattern.matcher(domainName);
+		if(!matcher.find()){
+			Toast toast = Toast.makeText(getApplicationContext(),
+					R.string.inputerror, 1);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
+			return;
+		}
+		
 		List<String> domainList = new ArrayList<String>();
 		for (int i = 0; i < table.getChildCount(); i++) {
 			TableRow row = (TableRow) table.getChildAt(i);
@@ -297,6 +316,33 @@ public class WhoisActivity extends Activity {
 						intent.putExtra("markList", (Serializable)markList);
 						startActivity(intent);
 	    	    	}
+	    	    	WhoisActivity.this.finish();
+	    	    }
+	    	});
+	    	AlertDialog alert = builder.create();
+	    	alert.show();
+	    }
+	 
+	 public void showAbout(View v){
+	    	final CharSequence[] items = {getResources().getText(R.string.about_comment),getResources().getText(R.string.about_feedback),getResources().getText(R.string.about_developer)};
+	    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    	builder.setItems(items, new DialogInterface.OnClickListener() {
+	    	    public void onClick(DialogInterface dialog, int item) {
+	    	    	if(item == 0){
+	    	    		//产品评分
+    	    		    Uri uri = Uri.parse("http://apk.gfan.com/Product/App479073.html");  
+    	    		    Intent it = new Intent(Intent.ACTION_VIEW, uri);  
+    	    		    startActivity(it);
+	    	    	}
+	    	    	if(item == 1){
+	    	    		MailService.sendMailByIntent(WhoisActivity.this, new String[]{"ouyangwanbin@gmail.com"},"whois用户反馈", null, "plain/text");
+	    	    	}
+	    	    	if(item == 2){
+	    	    		//开发者微博
+	    	    		Uri uri = Uri.parse("http://www.weibo.com/ouyangwanbin");  
+	    	    		Intent it = new Intent(Intent.ACTION_VIEW, uri);
+	    	    		startActivity(it);
+	    	    	}
 	    	    }
 	    	});
 	    	AlertDialog alert = builder.create();
@@ -327,5 +373,5 @@ public class WhoisActivity extends Activity {
 	    	//布局填充服务，android内置服务
 	    	LayoutInflater inflater=(LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	    	return inflater.inflate(R.layout.main, null);
-	    }
+	 }
 }

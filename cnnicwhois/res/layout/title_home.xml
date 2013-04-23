@@ -3,24 +3,24 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
 	    android:orientation="horizontal" >
- 
-	 <ImageView
+	    
+	<ImageView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentLeft="true"
-		android:id="@+id/tld_back_btn"
-		android:src="@drawable/navigationback"
+		android:id="@+id/about_btn"
+		android:src="@drawable/about"
 		android:layout_centerVertical="true"
+		android:onClick="showAbout"
 	/>
-	    
+ 
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_centerInParent="true"
-		android:text="@string/domain_cat_manage"
+		android:text="@string/app_name"
 		android:textSize="16sp"
 		android:textScaleX="1.5"
-		android:layout_centerVertical="true"
 		android:textColor="#281f1d"
 	/>
 	
@@ -28,8 +28,9 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentRight="true"
-		android:id="@+id/tld_add_btn"
-		android:src="@drawable/contentnew"
+		android:onClick="showManage"
+		android:id="@+id/showManage"
+		android:src="@drawable/setting"
 		android:layout_centerVertical="true"
 	/>
 </RelativeLayout>

@@ -13,25 +13,20 @@
 	    android:layout_width="200dp"
 	    android:layout_height="wrap_content"
 	    android:id="@+id/domain"
-	    android:hint="@string/inputhint"
 	    android:textStyle="italic"
 	    android:padding="5dip"
+	    android:layout_marginTop="6dip"
+	    android:layout_marginBottom="6dip"
 		android:textSize="18dip"
 		android:background="@drawable/rounded_edittext_states"
 	    />
 	
-	    <Button 
-	    android:layout_width="70dp"
+	    <ImageView 
+	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:textScaleX="1.5"
+	    android:layout_marginTop="4dip"
 	    android:id="@+id/button"
-	    android:layout_marginRight="5dp"
-	    android:layout_marginLeft="5dp"
-	    android:padding="5dip"
-	    android:textStyle="italic"
-	    android:text="@string/query"  
 	    android:onClick="queryDomain"
-	    android:textSize="18dip"
-	    android:background="@drawable/bg_button"   
+	    android:src="@drawable/search"
 	    />
 	</LinearLayout>

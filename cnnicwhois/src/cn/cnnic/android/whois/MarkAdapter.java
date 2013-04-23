@@ -1,6 +1,8 @@
 package cn.cnnic.android.whois;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,13 +32,14 @@ public class MarkAdapter extends BaseAdapter {
 	private UserPreferenceService up ;
 	private Pattern pattern = Pattern.compile("Expiration Date.*|Expiry date.*|expires.*|renewal[\\s]*:.*|Expire Date.*|\\[\\$BM-8z4\\|8B\\(B\\][\\s]*.*|Expired.*",Pattern.CASE_INSENSITIVE);
 	private WhoisService whoisService;
+	
+	private Map<String , String> cache = new HashMap<String,String>();
 
 	public MarkAdapter(Context context ,List<DomainMark> markList, int resultItem) {
 		this.markList = markList;
 		this.resultItem = resultItem;
 		this.context = context;
 		this.up= new UserPreferenceService(context);
-		this.whoisService = new WhoisService();
 		layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
@@ -69,8 +72,8 @@ public class MarkAdapter extends BaseAdapter {
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
-		final TextView domainView;
-		final TextView expireView;
+		TextView domainView;
+		TextView expireView;
 		if(convertView == null){
 			convertView = layoutInflater.inflate(resultItem, null);
 			domainView = (TextView)convertView.findViewById(R.id.result_mark);
@@ -81,55 +84,19 @@ public class MarkAdapter extends BaseAdapter {
 			domainView = dataWrapper.domainView;
 			expireView = dataWrapper.expireView;
 		}
-		final DomainMark domainMark = markList.get(position);
+		DomainMark domainMark = markList.get(position);
 		String domainName = domainMark.getDomainName();
 		String whoisServer = domainMark.getWhoisServer();
 		domainView.setText(domainName);
-		
-		asyncLoadExpire(expireView,domainName,whoisServer);
-	
+		expireView.setText(context.getResources().getString(R.string.loading));
+		expireView.setTag(domainName);
+		if(null == cache.get(domainName)){
+			asyncLoadExpire(expireView,domainName,whoisServer);
+		}else{
+			expireView.setText(cache.get(domainName));
+		}
 		return convertView;
 	}
-	
-//	private void asyncLoadExpire(final TextView expire, String domain , String whois){
-//		final String domainName = domain;
-//		final String whoisServer = whois;
-//		final Handler handler = new Handler(){
-//			
-//			
-//			@Override
-//			public void handleMessage(Message msg) {
-//				String expireDate = (String)msg.obj;
-//				if(expireDate != null && expire != null){
-//					expire.setText(expireDate);
-//				}
-//			}
-//		};
-//		
-//		Runnable r = new Runnable(){
-//			public void run() {
-//				whoisService.setDomainNameWithoutTld(LanguageUtil.getDomainNameWithoutTld(domainName));
-//				whoisService.setEncoding("UTF-8");
-//				TldEntity tld = new TldEntity(LanguageUtil.getDomainTld(domainName),whoisServer, 1);
-//				whoisService.setTldEntity(tld);
-//				Domain result = new Domain();
-//				try {
-//					result = whoisService.execute();
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//				if("registered".equals(result.getDomainInfo())){
-//					Matcher matcher = pattern.matcher(result.getWhoisResult());
-//					if(matcher.find()){
-//						Log.i("whoisLog",matcher.group());
-//						handler.sendMessage(handler.obtainMessage(10, matcher.group()));
-//					}
-//				}
-//			}
-//		};
-//		new Thread(r).start();
-//	}
-	
 	
 	private void asyncLoadExpire(TextView expireView, String domainName,
 			String whoisServer) {
@@ -137,14 +104,15 @@ public class MarkAdapter extends BaseAdapter {
 		asyncExpireTask.execute(domainName,whoisServer);
 	}
 	
-	private final class AsyncExpireTask extends AsyncTask<String,Integer,String>{
+	private final class AsyncExpireTask extends AsyncTask<String,Integer,Domain>{
 		private TextView expireView;
 		public AsyncExpireTask(TextView expireView){
 			this.expireView = expireView;
 		}
 		
 		@Override
-		protected String doInBackground(String... params) {
+		protected Domain doInBackground(String... params) {
+			WhoisService whoisService = new WhoisService();
 			whoisService.setDomainNameWithoutTld(LanguageUtil.getDomainNameWithoutTld(params[0]));
 			whoisService.setEncoding("UTF-8");
 			TldEntity tld = new TldEntity(LanguageUtil.getDomainTld(params[0]),params[1], 1);
@@ -153,25 +121,31 @@ public class MarkAdapter extends BaseAdapter {
 			try {
 				result = whoisService.execute();
 			} catch (Exception e) {
+				result.setDomainInfo("exception");
 				e.printStackTrace();
+			
 			}
-			if("registered".equals(result.getDomainInfo())){
-				Matcher matcher = pattern.matcher(result.getWhoisResult());
-				if(matcher.find()){
-					return matcher.group();
-				}
-			}
-			return null;
+			return result;
 		}
 
 		@Override
-		protected void onPostExecute(String result) {
-			if(result != null && expireView != null){
-				expireView.setText(result);
+		protected void onPostExecute(Domain domain) {
+			String result = "";
+			if(domain != null && expireView != null && expireView.getTag().equals(domain.getDomainName())){
+				if("unregistered".equals(domain.getDomainInfo())){
+					result = context.getResources().getString(R.string.domain_has_not_registered);
+				}else if("registered".equals(domain.getDomainInfo())){
+					Matcher matcher = pattern.matcher(domain.getWhoisResult());
+					if(matcher.find()){
+						result =matcher.group();
+					}
+				}else{
+					result = context.getResources().getString(R.string.data_query_error);
+				}
 			}
+			cache.put(domain.getDomainName(),result);
+			expireView.setText(result);
 		}
-		
-		
 		
 	}
 

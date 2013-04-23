@@ -123,7 +123,7 @@ public class WhoisTest extends AndroidTestCase {
 	public void testUpMarkTest(){
 		UserPreferenceService us = new UserPreferenceService(getContext());
 		try{
-			us.updateMarkList("baidu.net.cn", "add");
+			us.updateMarkList("34hk.ÖÐ¹ú", "delete");
 		}catch(Exception e){
 			e.printStackTrace();
 		}

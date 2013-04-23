@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -31,8 +32,8 @@ import cn.cnnic.android.whois.utils.LanguageUtil;
 public class TldManagerActivity extends Activity {
 	private ListView tldListView;
 	private TldAdapter tldAdapter;
-	private Button tldAddBtn;
-	private Button tldBackBtn;
+	private ImageView tldAddImage;
+	private ImageView tldBackImage;
 	private Resources resources;
 	private UserPreferenceService up = new UserPreferenceService(this);
 	
@@ -54,19 +55,20 @@ public class TldManagerActivity extends Activity {
 		tldListView.setAdapter(tldAdapter);
 		tldListView.setOnItemClickListener(new ItemClick(tldListView));
 		
-		tldBackBtn = (Button)this.findViewById(R.id.tld_back_btn);
-		tldBackBtn.setOnClickListener(new OnClickListener(){
+		tldBackImage = (ImageView)this.findViewById(R.id.tld_back_btn);
+		tldBackImage.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(TldManagerActivity.this,WhoisActivity.class);
 				TldManagerActivity.this.startActivity(intent);
+				TldManagerActivity.this.finish();
 			}
 			
 		});
 		
-		tldAddBtn = (Button)this.findViewById(R.id.tld_add_btn);
-		tldAddBtn.setOnClickListener(new OnClickListener(){
+		tldAddImage = (ImageView)this.findViewById(R.id.tld_add_btn);
+		tldAddImage.setOnClickListener(new OnClickListener(){
 
 			private RadioButton radioShow;
 			@SuppressWarnings("unused")
@@ -158,16 +160,6 @@ public class TldManagerActivity extends Activity {
 			
 		});
 	}
-	
-//	@Override
-//	protected void onStop() {
-//		super.onStop();
-//		Intent intent = new Intent(this,WhoisActivity.class);
-//		this.startActivity(intent);
-//	}
-
-
-
 
 	protected final class ItemClick implements OnItemClickListener{
 		private UserPreferenceService up = new UserPreferenceService(TldManagerActivity.this);

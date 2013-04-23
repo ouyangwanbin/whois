@@ -14,6 +14,7 @@ import android.util.Log;
 import android.util.Xml;
 import android.view.View;
 import cn.cnnic.android.whois.entity.DomainMark;
+import cn.cnnic.android.whois.entity.Registrar;
 import cn.cnnic.android.whois.entity.TldEntity;
 import cn.cnnic.android.whois.utils.LanguageUtil;
 
@@ -22,6 +23,7 @@ public class UserPreferenceService {
 	private Context context;
 	private String config="tld-recommend.xml";
 	private String markConfig="domain-mark.xml";
+	private String registrarConfig="registrar.xml";
 	
 	public UserPreferenceService(Context context){
 		this.context = context;
@@ -146,7 +148,7 @@ public class UserPreferenceService {
 	}
 	
 	/**
-	 * 读取tld配置的xml中的内容
+	 * 读取mark配置的xml中的内容
 	 * @param config
 	 * @return
 	 * @throws Exception
@@ -244,6 +246,119 @@ public class UserPreferenceService {
 					saveUserMark(markList);
 					return;
 				}
+			}
+		}
+		if("delete".equals(method)){
+			markList.remove(domainMark);
+			saveUserMark(markList);
+			return;
+		}
+	}
+	
+	/**
+	 * 读取registrar配置的xml中的内容
+	 * @param config
+	 * @return
+	 * @throws Exception
+	 */
+	public ArrayList<Registrar> getRegistrars() throws Exception{
+
+		ArrayList<Registrar> registrarList = null;
+		Registrar registrar = null;
+		XmlPullParser pullParser = Xml.newPullParser();
+		File xml = new File(context.getFilesDir(),registrarConfig);
+		FileInputStream inputStream = new FileInputStream(xml);
+		pullParser.setInput(inputStream, "UTF-8");
+		int event = pullParser.getEventType();
+		while(event != XmlPullParser.END_DOCUMENT){
+			switch(event){
+			case XmlPullParser.START_DOCUMENT:
+				registrarList = new ArrayList<Registrar>();
+				break;
+			
+			case XmlPullParser.START_TAG:
+				if("registrar".equals(pullParser.getName())){
+					registrar = new Registrar();
+				}
+				
+				if("name".equals(pullParser.getName())){
+					String name = pullParser.nextText();
+					registrar.setRegistrarName(name);
+				}
+				
+				if("address".equals(pullParser.getName())){
+					String address = pullParser.nextText();
+					registrar.setAddress(address);
+				}
+				if("default".equals(pullParser.getName())){
+					String setDefault = pullParser.nextText();
+					registrar.setSetDefault(setDefault);
+				}
+				break;
+			case XmlPullParser.END_TAG:
+				if("registrar".equals(pullParser.getName())){
+					registrarList.add(registrar);
+					registrar = null;
+				}
+				break;
+			}
+			event = pullParser.next();
+		}
+		return registrarList;
+	}
+	
+	/**
+	 * 将用户的域名收藏选择写入xml文件
+	 *  
+	 */
+	public void saveRegistrar(List<Registrar> registrarList) throws Exception{
+		FileOutputStream outStream = null;
+		File xmlFile = new File(context.getFilesDir(),"registrar.xml");
+		outStream = new FileOutputStream(xmlFile);
+		XmlSerializer serializer = Xml.newSerializer();
+		serializer.setOutput(outStream,"UTF-8");
+		serializer.startDocument("UTF-8", true);
+		serializer.startTag(null, "registrars");
+		for(Registrar registrar : registrarList){
+			serializer.startTag(null, "registrar");
+			
+			serializer.startTag(null, "name");
+			serializer.text(registrar.getRegistrarName());
+			serializer.endTag(null,"name");
+			
+			serializer.startTag(null, "address");
+			serializer.text(registrar.getAddress());
+			serializer.endTag(null,"address");
+			
+			serializer.startTag(null, "default");
+			serializer.text(registrar.getSetDefault());
+			serializer.endTag(null,"default");
+			
+			serializer.endTag(null,"registrar");
+		}
+		serializer.endTag(null,"registrars");
+		serializer.endDocument();
+		outStream.flush();
+		outStream.close();
+	}
+	
+	public boolean isSetDefault(String domainName) throws Exception{
+		List<Registrar> registrarList = getRegistrars();
+		for(Registrar registrar : registrarList){
+			if("Y".equals(registrar.getSetDefault())){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void setDefault(String registrarName) throws Exception{
+		List<Registrar> registrarList = getRegistrars();
+		for(Registrar registrarIn : registrarList){
+			if(registrarIn.getRegistrarName().equals(registrarName)){
+				registrarIn.setSetDefault("Y");
+			}else{
+				registrarIn.setSetDefault("N");
 			}
 		}
 	}

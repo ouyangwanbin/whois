@@ -4,12 +4,13 @@
 	    android:layout_height="fill_parent"
 	    android:orientation="horizontal" >
  
-	 <Button
+	<ImageView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentLeft="true"
-		android:text="@string/back"
 		android:id="@+id/tld_back_btn"
+		android:src="@drawable/navigationback"
+		android:layout_centerVertical="true"
 	/>
 	    
 	<TextView
@@ -19,13 +20,6 @@
 		android:text="@string/domain_mark_manage"
 		android:textSize="16sp"
 		android:textScaleX="1.5"
-	/>
-	
-	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentRight="true"
-		android:text="@string/tld_add"
-		android:id="@+id/tld_add_btn"
+		android:textColor="#281f1d"
 	/>
 </RelativeLayout>

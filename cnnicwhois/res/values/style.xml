@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <style name="CustomWindowTitleBackground">
-<item name="android:background">@drawable/background</item>
+	<item name="android:background">
+	    #f4f4f4
+	</item>
 </style>
 <style name="title_style" parent="android:Theme">
 <item name="android:windowTitleSize">44dip</item>
